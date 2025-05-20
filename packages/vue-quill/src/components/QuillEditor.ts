@@ -106,7 +106,7 @@ export const QuillEditor = defineComponent({
 
     // Register Module if not already registered
     const registerModule = (moduleName: string, module: unknown) => {
-      if (Quill?.imports && moduleName in Quill.imports) {
+      if (typeof Quill.import === 'function' && Quill.import(moduleName)) {
         return
       }
       Quill.register(moduleName, module)

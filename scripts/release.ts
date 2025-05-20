@@ -1,7 +1,7 @@
 ;(async () => {
   require('dotenv').config()
   const logger = require('./logger')
-  const semanticRelease = require('semantic-release')
+  const { default: semanticRelease } = require('semantic-release')
   const { rootDir, getPackageDir, getPackageJson } = require('./utils')
 
   const args = require('minimist')(process.argv.slice(2))
@@ -77,7 +77,10 @@
   const pkgDir = getPackageDir(target)
   const pkg = getPackageJson(target)
   if (pkg.private) {
-    logger.warning('semantic-release', `You can't release private package [${target}]`)
+    logger.warning(
+      'semantic-release',
+      `You can't release private package [${target}]`
+    )
     return
   }
 
@@ -110,7 +113,9 @@
       }
 
       for (const release of releases) {
-        console.log(`The release was published with plugin "${release.pluginName}".`)
+        console.log(
+          `The release was published with plugin "${release.pluginName}".`
+        )
       }
     } else {
       logger.warning(target, 'No release published.')
